@@ -1,7 +1,35 @@
 #include <iostream>
 #include <raylib.h>
 
+
+class PolarBear
+{
+public:
+
+	Texture2D sprite;
+
+	PolarBear() {
+		sprite = LoadTexture("Assets/PolarBearPlayer.png");
+	}
+
+	~PolarBear() {
+		UnloadTexture(sprite);
+	}
+
+	void Draw() {
+		DrawTexture(sprite, 100, 100, WHITE);
+	}
+
+private:
+
+};
+
+
+
+
 int main() {
+
+
 
 	const int ROWS = 11;
 	const int COLS = 15;
@@ -22,8 +50,13 @@ int main() {
 	};
 
 	InitWindow(1280, 720, "Polar game Maze Survival");
+	ToggleFullscreen();
 	SetTargetFPS(60);
 
+		int tileW = GetScreenWidth() / COLS;
+		int tileH = GetScreenHeight() / ROWS;
+
+		PolarBear player;
 
 	while (!WindowShouldClose())
 	{
@@ -36,10 +69,12 @@ int main() {
 			for (int c = 0; c < COLS; c++)
 			{
 				if (map[r][c] == 1) {
-					DrawRectangle(c * TILE, r * TILE, TILE, TILE, DARKBLUE);
+					DrawRectangle(c * tileW, r * tileH, tileW, tileH, DARKBLUE);
 				}
 			}
 		}
+
+		player.Draw();
 
 		EndDrawing();
 	}
